@@ -13,6 +13,7 @@ window = pygame.display.set_mode((500, 500))
 window.fill((200, 200, 255))
 clock = pygame.time.Clock()
 run = True
+isMouseHeld = False
 
 # Fish class ------------------
 
@@ -45,13 +46,20 @@ class Fish():
 # Some define functions -------
 
 def pygameEvents():
-    global run
+    global run, mouseCoor, isMouseHeld
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouseCoor = pygame.mouse.get_pos()
+            isMouseHeld = True
+            if event.button == 1: # left button
+                # do stuff
+                pass
+        if event.type == pygame.MOUSEBUTTONUP:
+            isMouseHeld = False
+        if event.type == pygame.KEYDOWN:
             pass
-        # elif event.type ==
 
 def updateDisplay():
     pygame.display.update()
