@@ -1,1 +1,0 @@
-This is made by/for my course.
