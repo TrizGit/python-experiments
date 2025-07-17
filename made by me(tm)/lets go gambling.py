@@ -77,14 +77,14 @@ def match():
             print('SUPER JACKPOT!!!1!1')
             wait(3)
             for i in range(160):
-                jackpot = random.randint(100000, 10000000) + draws
+                jackpot = random.randint(100000, 10000000) + (draws * 100)
                 print(f'You got: ${jackpot}     ', end='\r')
                 wait(0.005)
         else:
             print('JACKPOT!')
             wait(3)
             for i in range(160):
-                jackpot = random.randint(10000, 100000) + draws
+                jackpot = random.randint(10000, 100000) + (draws * 10)
                 print(f'You got: ${jackpot}     ', end='\r')
                 wait(0.005)
         wait(3)
