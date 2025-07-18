@@ -1,5 +1,4 @@
 # A cli game about... well, gambling.
-# Play type : Random Chance
 # (This script was heavily modified.)
 
 from time import sleep as wait # i like it better when it's like lua
@@ -40,7 +39,7 @@ def newDraw():
 
 def spin():
     global symbol1, symbol2, symbol3, loop1, loop2, loop3
-    loop1 = random.randint(3, 4) * 100
+    loop1 = random.randint(2, 6) * 100
     loop2 = loop1 + 100
     loop3 = loop2 + 100
     
@@ -77,25 +76,27 @@ def match():
             print('SUPER JACKPOT!!!1!1')
             wait(3)
             for i in range(160):
-                jackpot = random.randint(100000, 10000000) + (draws * 100)
+                jackpot = random.randint(1000000, 99999999) + (draws * 100 * mult)
                 print(f'You got: ${jackpot}     ', end='\r')
                 wait(0.005)
+            cost -= jackpot % 100000
+            mult += 2
         else:
             print('JACKPOT!')
             wait(3)
             for i in range(160):
-                jackpot = random.randint(10000, 100000) + (draws * 10)
+                jackpot = random.randint(10000, 999999) + (draws * 10 * mult)
                 print(f'You got: ${jackpot}     ', end='\r')
                 wait(0.005)
+            cost -= jackpot % 1000
+            mult += 1
         wait(3)
         print()
         change(jackpot)
-        cost -= 1000
-        mult += 1
     elif symbol1 == symbol2 or symbol2 == symbol3 or symbol3 == symbol1:
         changes = random.randint(100, 999) + draws
         if symbol1 == '$' or symbol2 == '$':
-            changes += random.randint(10, 100) * 2
+            changes += random.randint(10, 100) * 10
         print(f'Two of a kind! (Get ${changes})     ')
         wait(3)
         change(changes)
@@ -110,7 +111,7 @@ while money >= cost * -1:
     match()
     if money < cost * -1:
         break
-    cost -= 25 * mult
+    cost -= random.randint(20, 25) * mult
         
 print('#' * 20,'\nno more gambling\nyou\'ve done it', draws, 'times')
 wait(2)
