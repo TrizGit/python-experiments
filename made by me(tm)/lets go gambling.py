@@ -75,20 +75,20 @@ def match():
         if symbol1 == '$':
             print('SUPER JACKPOT!!!1!1')
             wait(3)
-            for i in range(160):
+            for i in range(320):
                 jackpot = random.randint(1000000, 99999999) + (draws * 100 * mult)
                 print(f'You got: ${jackpot}     ', end='\r')
                 wait(0.005)
-            cost -= jackpot % 100000
-            mult += 2
+            cost -= jackpot % 1000000
+            mult += 3
         else:
             print('JACKPOT!')
             wait(3)
-            for i in range(160):
+            for i in range(320):
                 jackpot = random.randint(10000, 999999) + (draws * 10 * mult)
                 print(f'You got: ${jackpot}     ', end='\r')
                 wait(0.005)
-            cost -= jackpot % 1000
+            cost -= jackpot % 10000
             mult += 1
         wait(3)
         print()
