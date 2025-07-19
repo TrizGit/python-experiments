@@ -106,13 +106,15 @@ SFlush = HandType('Straight Flush', 100.0, 4.0)
 RFlush = HandType('Royal Flush', 150.0, 5.0)
 
 ante = 1
-play = 0
+play = 1
 required_score = 180
 chip = 0.0
 mult = 0.0
-max_select = 8
+max_select = 5
+max_hand = 8
 
 answer:str = ''
+additional_lines:int = 0
 
 for suit in all_suit:
     for card in suit:
@@ -130,11 +132,14 @@ def flip_bool(bool:bool):
     elif not bool:
         return True
 
-def cooldown(cd:float=1):
+def cooldown(cd:float=1, cl:int=1):
     """Cooldown so no spammy"""
     print('\nCooldown...', end='\r')
     time.sleep(cd)
-    clear_line()
+    for i in range(cl):
+        clear_line()
+        if i < cl - 1:
+            print('\033[A', end='\r')
 
 def move_pointer_up(num:int=1, ends:str='', clear_lines:bool=False, clear_curLine:bool=True):
     """Move the cursor up"""
@@ -222,7 +227,7 @@ def draw_card(card:Card):
 
 def new_round():
     """Start a new round"""
-    while len(cur_hand) < 8:
+    while len(cur_hand) < max_hand:
         card_drawn = cur_deck[0]
         draw_card(card_drawn)
 
@@ -240,11 +245,15 @@ while True:
     detected_input = False
     awaitingInput('a', delay=0)
     awaitingInput('d', delay=0)
-    awaitingInput('space', delay=1.5)
+    awaitingInput('space', delay=0.5)
     awaitingInput('z')
     awaitingInput('x')
     if detected_input:
         move_pointer_up(1, clear_lines=True)
+
+        if additional_lines >= 1:
+            move_pointer_up(clear_lines=True)
+            additional_lines = 0
 
         if answer == 'a':
             if cur_pointed_index == 0:
@@ -261,9 +270,15 @@ while True:
             move_pointed(cur_pointed_index)
             cooldown(0.5)
         elif answer == 'space':
-            cur_pointed.selected = flip_bool(cur_pointed.selected)
-            move_pointed(cur_pointed_index)
+            if len(selected) >= max_select and cur_pointed.selected == False:
+                move_pointed(cur_pointed_index)
+                print("\nNope! You've reach the maximum cards selection.", end='')
+                additional_lines = 1
+            else:
+                cur_pointed.selected = flip_bool(cur_pointed.selected)
+                if cur_pointed.selected:
+                    selected.append(cur_pointed)
+                else:
+                    selected.remove(cur_pointed)                
+                move_pointed(cur_pointed_index)
             cooldown(1)
-        
-cur_hand = []
-cur_deck = og_deck
