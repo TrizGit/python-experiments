@@ -21,7 +21,7 @@ start = time.time()
 for cur_file in files:
     file = MP3(filepath + '\\' + cur_file, ID3=EasyID3)
     try:
-        file['album'] = ['songs and stuff']
+        file['album'] = ['songs and stuff'] # set it to whatever you'd like, or remove it completely
         file['tracknumber'] = [checkLength(cur_file)]
         file.save()
         print(f'Saving... ({file["title"][0]} // {file["artist"][0]} // {file["tracknumber"][0]})')
@@ -36,3 +36,4 @@ time.sleep(0.5)
 print(f'\nSaved!\nTook {round(end - start, 3)} seconds.\n\nleaving in 5 seconds...')
 
 time.sleep(5)
+
