@@ -1,6 +1,7 @@
-from mutagen.mp3 import MP3
-from mutagen.easyid3 import EasyID3
-import os, time, sys
+# Rename batches of files easily.
+# Though, it only works when you have filenames that looks like this: no. (#).mp3
+
+import os, sys
 
 def checkLength(text:str):
     return text[5:6+(len(text)-11)]

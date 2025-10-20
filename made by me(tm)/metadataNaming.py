@@ -1,3 +1,8 @@
+# Sorting out your music easily.
+# Though, it only works when you have filenames that looks like this: no. (#).mp3
+# You need to have mutagen installed.
+# Works well with fileRenaming.py
+
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
 import os, time, random
