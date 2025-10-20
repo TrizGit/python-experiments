@@ -12,7 +12,9 @@ def checkLength(text:str):
         return text[5:6+(len(text)-11)]
 
 filepath = 'F:\\confidential evidance\\musicPL'
-files = [f'no. ({i + 1}).mp3' for i in range(len(os.listdir(filepath)) - 3)]
+files = os.listdir(filepath)
+for a in ['Playlists', 'desktop.ini', 'script']:
+    files.remove(a)
 
 start = time.time()
 
@@ -32,4 +34,5 @@ end = time.time()
 
 time.sleep(0.5)
 print(f'\nSaved!\nTook {round(end - start, 3)} seconds.\n\nleaving in 5 seconds...')
+
 time.sleep(5)
